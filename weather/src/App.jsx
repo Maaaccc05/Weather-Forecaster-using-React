@@ -4,6 +4,8 @@ import WeatherBackground from './components/WeatherBackground'
 const App = () => {
 
   const [weather, setWeather] = useState(null)
+  const [city, setCity] = useState('')
+  const [suggestion, setSuggestion] = useState([])
 
   const getWeatherCondition = () => weather && ({
     main: weather.weather[0].main,
@@ -19,6 +21,12 @@ const App = () => {
       <h1 className='text-4xl font-extrabold text-center mb-6'>
         Weather Forecaster
       </h1>
+
+      {weather ? (
+        <form onSubmit={handleSearch} className='flex flex-col relative'>
+          <input value={city} onChange={(e) => setCity(e.target.value)} placeholder='Enter Your City or Country Name' className='mb-4 p-3 rounded border border-white bg-transparent text-white placeholder-white focus:outline-none focus:border-blue-300 transition duration-300'/>
+        </form>
+      )}
       </div>
     </div>
   </div>
