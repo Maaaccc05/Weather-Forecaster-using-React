@@ -24,7 +24,7 @@ const WeatherBackground = ({ condition }) => {
     Fog: Haze,
     default: video
   };
-}
+
 const getBackground = () => {
     if(!condition) return gifs.default;
     const weatherType = condition.name;
@@ -32,5 +32,25 @@ const getBackground = () => {
 
     if(!asset) return gifs.default
     if(typeof async === 'object')
-    return condition.isDay ? asset.Day : asset.night
+      return condition.isDay ? asset.Day : asset.night
+
+    return asset;
 }
+
+
+const background = getBackground();
+
+return (
+  <div className='fixed inset-0 z-0 overflow-hidden'>
+    {background === video ?  (
+      <video autoPlay loop muted className='w-full h-full object-cover opacity-100 pointer-events-none animate-fade-in'>
+        <source src={video} type='video/mp4' />
+      </video>  
+    ) : (
+      <img src={background} alt="weather-bg" className='w-full h-full object-cover opacity-20 pointer-events-none animate-fade-in' />
+    )}
+    <div className='absolute inset-0 bg-black/30 '/>
+  </div>
+)
+}
+export default WeatherBackground;

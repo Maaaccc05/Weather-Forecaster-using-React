@@ -1,11 +1,16 @@
 import React from 'react'
+import WeatherBackground from './components/WeatherBackground'
 
 const App = () => {
+
+  const getWeatherCondition = () => weather && ({
+    main: weather.weather[0].main,
+    isDay: Date.now()/1000 > weather.sys.sunrise && Date.now()/1000 < weather.sys.sunset
+  })
+
   return (
-    <div>
-    <h1 class="text-3xl font-bold underline">
-    Hello world!
-  </h1>
+    <div className='min-h-screen'>
+    <WeatherBackground condition={getWeatherCondition()}/>
   </div>
   )
 }
