@@ -35,13 +35,24 @@ const App = () => {
           {suggestion.length > 0 && (
             <div className='absolute top-12 left-0 right-0 bg-transparent shadow-md rounded z-10'>
               {suggestion.map((s) => (
-                <button>
-
+                <button type='button' key={`${s.lat}-${s.lon}`}
+                onClick={() => featchWeatherData(
+                  `https://api.openweathermap.org/data/2.5/weather?lat=${s.lat}&lon=${s.lon}&appid={API_KEY}&units=metric `,
+                  `${s.name}, ${s.country}${s.state ? `, ${s.state}`: ''}`
+                )} className='block hover:bg-blue-700 bg-transparent px-4 py-2 text-sm text-left w-full transition-colors'>
+                  {s.name},{s.country}{s.state && `, ${s.state}`}
                 </button>
               ))}
             </div>
           )}
+          <button className='bg-purple-700 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded transition-colors'>
+            Get Weather
+          </button>
         </form>
+      ) : (
+        <div className='mt-6 text-center transition-opacity duration-500'>
+          <button onClick={() => {setWeather(null); setCity('')}}></button>
+        </div>
       )}
       </div>
     </div>
