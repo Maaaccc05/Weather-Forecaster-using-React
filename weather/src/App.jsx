@@ -51,7 +51,9 @@ const App = () => {
         </form>
       ) : (
         <div className='mt-6 text-center transition-opacity duration-500'>
-          <button onClick={() => {setWeather(null); setCity('')}}></button>
+          <button onClick={() => {setWeather(null); setCity('')}} className='mb-4 bg-purple-900 hover:bg-blue-700 text-white font-semibold rounded transition-colors'>
+            New Search
+          </button>
         </div>
       )}
       </div>
