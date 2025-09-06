@@ -6,6 +6,7 @@ const App = () => {
   const [weather, setWeather] = useState(null)
   const [city, setCity] = useState('')
   const [suggestion, setSuggestion] = useState([])
+  const [unit, setUnit] = useState('C')
 
   const API_KEY = '501cf176e7f80eac85a43d613b337237'
 
@@ -54,6 +55,15 @@ const App = () => {
           <button onClick={() => {setWeather(null); setCity('')}} className='mb-4 bg-purple-900 hover:bg-blue-700 text-white font-semibold rounded transition-colors'>
             New Search
           </button>
+          <div className='flex justify-between items-center '>
+            <h2 className='text-3xl font-bold'>
+              {weather.name}
+            </h2>
+            <button onClick={() => setUnit(u => u=== 'C' ? 'F' : 'C')} className='bg-blue-700 hover:bg-blue-800 text-white font-semibold py-1 px-3 rounded transition-colors'>
+              &deg;{unit}
+            </button>
+          </div>
+          <img src={` https://api.openweathermap.org/img/wn/${weather.weather[0].icon}@2px.png `} alt={weather.weather[0].description} className='mx-auto my-4 animate-bounce'/>
         </div>
       )}
       </div>
