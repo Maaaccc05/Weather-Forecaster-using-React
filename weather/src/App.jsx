@@ -7,8 +7,21 @@ const App = () => {
   const [city, setCity] = useState('')
   const [suggestion, setSuggestion] = useState([])
   const [unit, setUnit] = useState('C')
+  const [error, setError] = useState('')
 
   const API_KEY = '501cf176e7f80eac85a43d613b337237'
+
+  const featchWeatherData = async(URL, name = '') => {
+    
+  }
+
+  const handleSearch = async (e) => {
+    e.preventDefault()
+    if(!city.trim()) return setError("Please Enter Correct City name")
+      await featchWeatherData(
+        `https://api.openweathermap.org/data/2.5/weather?q=${city.trim()}&appid=${API_KEY}&units=metric`
+      )
+  }
 
   // https://api.openweathermap.org/data/2.5/weather?lat=${s.lat}&lon=${s.lon}&appid={API_KEY}&units=metric 
 
