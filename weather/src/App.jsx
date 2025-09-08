@@ -12,7 +12,17 @@ const App = () => {
   const API_KEY = '501cf176e7f80eac85a43d613b337237'
 
   const featchWeatherData = async(URL, name = '') => {
-    
+    setError('')
+    setWeather(null)
+
+    try{
+      const response = await fetch(url)
+      if(!response.ok) throw new Error((await response.json()).message || 'City not foundcos')
+      const data = await response.json()
+      setWeather(data)
+      setCity(name|| data.name)
+      setSuggestion([])
+    }
   }
 
   const handleSearch = async (e) => {
