@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import WeatherBackground from './components/WeatherBackground'
 
 const App = () => {
@@ -11,6 +11,14 @@ const App = () => {
 
   const API_KEY = '501cf176e7f80eac85a43d613b337237'
 
+  useEffect(() => {
+    if(city.trim().length >= 3 && !weather){
+      const timer = setTimeout(() => fetchSuggestions(city), 500)
+      return () => clearTimeout(timer)
+    }
+    setSuggestion([])
+  }, [city, weather])
+  // This will fetch data from url 
   const featchWeatherData = async(URL, name = '') => {
     setError('')
     setWeather(null)
@@ -20,8 +28,11 @@ const App = () => {
       if(!response.ok) throw new Error((await response.json()).message || 'City not foundcos')
       const data = await response.json()
       setWeather(data)
-      setCity(name|| data.name)
-      setSuggestion([])
+      setCity(name || data.name)
+      setSuggestion([]);
+    }
+    catch (error) {
+      setError(err.message)
     }
   }
 
