@@ -114,6 +114,7 @@ const App = () => {
             </button>
           </div>
           <img src={` https://api.openweathermap.org/img/wn/${weather.weather[0].icon}@2px.png `} alt={weather.weather[0].description} className='mx-auto my-4 animate-bounce'/>
+          <p></p>
         </div>
       )}
       </div>
