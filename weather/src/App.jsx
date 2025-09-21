@@ -10,6 +10,12 @@ const App = () => {
   const [error, setError] = useState('')
 
   const API_KEY = '501cf176e7f80eac85a43d613b337237'
+  
+  // https://api.openweathermap.org/data/2.5/weather?lat=${s.lat}&lon=${s.lon}&appid={API_KEY}&units=metric 
+
+  // https://api.openweathermap.org/data/2.5/weather?q={city name}&appid={API key} city name api key
+
+  // http://api.openweathermap.org/geo/1.0/direct?q={query}&limit=5&appid={API_KEY}
 
   useEffect(() => {
     if(city.trim().length >= 3 && !weather){
@@ -18,6 +24,19 @@ const App = () => {
     }
     setSuggestion([])
   }, [city, weather])
+
+  const fetchSuggestions = async (query) => {
+    try{
+      const res = await fetch(
+        `http://api.openweathermap.org/geo/1.0/direct?q=${query}&limit=5&appid=${API_KEY}`
+
+      )
+      res.ok ? setSuggestion(await res.json()) : setSuggestion([])
+    }
+    catch{
+      setSuggestion([])
+    }
+  }
   // This will fetch data from url 
   const featchWeatherData = async(URL, name = '') => {
     setError('')
@@ -44,9 +63,6 @@ const App = () => {
       )
   }
 
-  // https://api.openweathermap.org/data/2.5/weather?lat=${s.lat}&lon=${s.lon}&appid={API_KEY}&units=metric 
-
-  // https://api.openweathermap.org/data/2.5/weather?q={city name}&appid={API key} city name api key
 
   const getWeatherCondition = () => weather && ({
     main: weather.weather[0].main,
