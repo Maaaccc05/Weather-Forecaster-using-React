@@ -10,7 +10,7 @@ const App = () => {
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(true)
 
-  const API_KEY = '501cf176e7f80eac85a43d613b337237'
+  const API_KEY = import.meta.env.VITE_OPENWEATHER_API_KEY
 
   // ask for user location on first visit
   useEffect(() => {
